@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - FashionHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Fashion<span>Hub</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Store
+            </a>
+
+            <a href="admin.html" class="active">
+                Dashboard
+            </a>
+
+        </div>
+
+        <div class="search-box">
+            🔍
+
+            <input
+                type="text"
+                placeholder="Search products..."
+                onkeyup="searchTable(this.value)"
+            >
+        </div>
+
+        <div class="nav-actions">
+
+            <span class="profile-name">
+                👋
+                <span id="adminName">Admin</span>
+            </span>
+
+            <button
+                class="btn-logout"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================
+         MAIN DASHBOARD
+    ========================================== -->
+
+    <main class="container">
+
+
+        <!-- =====================================
+             STATS
+        ====================================== -->
+
+        <div class="stats">
+
+            <div class="stat-card stat-pink">
+
+                <h3>
+                    Total Products
+                </h3>
+
+                <div
+                    class="num"
+                    id="statTotal"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card stat-green">
+
+                <h3>
+                    Inventory Value
+                </h3>
+
+                <div
+                    class="num"
+                    id="statValue"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card stat-blue">
+
+                <h3>
+                    Categories
+                </h3>
+
+                <div
+                    class="num"
+                    id="statCats"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PRODUCT MANAGEMENT
+        ====================================== -->
+
+        <div class="panel">
+
+            <div class="panel-head">
+
+                <h2>
+                    📦 Product Management
+                </h2>
+
+                <button
+                    class="btn-add"
+                    onclick="openAdd()"
+                >
+                    ➕ Add Product
+                </button>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>
+                                Image
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Price
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="tableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty"
+                            >
+                                Loading products...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         ADD / EDIT PRODUCT MODAL
+    ========================================== -->
+
+    <div
+        class="modal-bg"
+        id="modalBg"
+    >
+
+        <div class="modal">
+
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-head">
+
+             <button class="btn-add" onclick="openAdd()">➕ Add Product</button>
+
+                <button
+                    class="modal-close"
+                    onclick="closeModal()"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+
+            <!-- MODAL BODY -->
+
+            <div class="modal-body">
+
+                <form
+                    id="productForm"
+                    onsubmit="saveProduct(event)"
+                >
+
+                    <input
+                        type="hidden"
+                        id="productId"
+                    >
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Product Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pName"
+                            placeholder="e.g. Casual T-Shirt"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- BRAND + CATEGORY -->
+
+                    <div class="two-col">
+
+                        <div class="form-group">
+
+                            <label>
+                                Brand
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pBrand"
+                                placeholder="e.g. Roadster"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Category
+                            </label>
+
+                            <select id="pCategory">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Men">
+                                    Men
+                                </option>
+
+                                <option value="Women">
+                                    Women
+                                </option>
+
+                                <option value="Footwear">
+                                    Footwear
+                                </option>
+
+                                <option value="Accessories">
+                                    Accessories
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE + MRP -->
+
+                    <div class="two-col">
+
+                        <div class="form-group">
+
+                            <label>
+                                Price (₹) *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="pPrice"
+                                placeholder="499"
+                                min="1"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                MRP (₹)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="pMrp"
+                                placeholder="999"
+                                min="0"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE URL -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Image URL
+                        </label>
+
+                        <input
+                            type="url"
+                            id="pImage"
+                            placeholder="https://... (khali chhodo to auto image)"
+                        >
+
+                        <small style="display:block;margin-top:6px;opacity:.7;">
+                            💡 Image URL empty chhodoge to product name ke according
+                            Pexels se image automatically aayegi.
+                        </small>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            id="pDesc"
+                            rows="3"
+                            placeholder="Product description..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SAVE -->
+
+                    <button
+                        type="submit"
+                        class="btn-full"
+                    >
+                        💾 Save Product
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+    <!-- ADMIN JAVASCRIPT -->
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

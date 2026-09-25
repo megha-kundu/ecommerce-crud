@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FashionHub - Online Shopping</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Fashion<span>Hub</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="#" onclick="filterCategory('Men', document.querySelectorAll('.cat-chip')[1]); return false;">Men</a>
+      <a href="#" onclick="filterCategory('Women', document.querySelectorAll('.cat-chip')[2]); return false;">Women</a>
+      <a href="admin.html">Dashboard</a>
+    </div>
+    <div class="search-box">🔍
+      <input type="text" placeholder="Search for products, brands and more" onkeyup="searchProducts(this.value)">
+    </div>
+    <div class="nav-actions" id="navAuth">
+      <a href="login.html" class="btn-login">Login</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Big Fashion Festival 🛍️</h1>
+    <p>50-80% OFF on top brands | New styles added daily</p>
+  </section>
+
+  <!-- CATEGORIES -->
+  <div class="categories">
+    <button class="cat-chip active" onclick="filterCategory('All', this)">All</button>
+    <button class="cat-chip" onclick="filterCategory('Men', this)">Men</button>
+    <button class="cat-chip" onclick="filterCategory('Women', this)">Women</button>
+    <button class="cat-chip" onclick="filterCategory('Footwear', this)">Footwear</button>
+    <button class="cat-chip" onclick="filterCategory('Accessories', this)">Accessories</button>
+  </div>
+
+  <!-- PRODUCTS -->
+  <main class="container">
+    <h2 class="section-title">Trending Now ✨</h2>
+    <div class="grid" id="productGrid">
+      <p class="empty">Loading products...</p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <b>FashionHub</b> — PHP + MySQL CRUD Project | Made with ❤️ | Admin: <a href="admin.html">Dashboard</a>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
