@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionHub - Shopping Cart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ff4757;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #ff4757;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .item-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+        }
+
+        .item-details p {
+            margin: 0;
+            color: #777;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #ff4757;
+            font-size: 18px;
+        }
+
+        .cart-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .cart-summary h3 {
+            margin: 0 0 15px 0;
+        }
+
+        .checkout-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #e0404f;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+            padding: 40px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        footer a {
+            color: #ff4757;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">FashionHub</a>
+        <nav class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="cart.html" style="color: #ff4757; font-weight: bold;">CART</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Your Shopping Cart</h2>
+
+        <!-- This container is where your Javascript adds items from MySQL -->
+        <div id="cartDisplayGrid"></div>
+
+        <!-- Checkout Summary Block -->
+        <div class="cart-summary" id="cartSummaryBlock" style="display: none;">
+            <h3>Total Price: <span id="totalPriceWindow">$0.00</span></h3>
+            <button class="checkout-btn" onclick="alert('Checkout integration coming soon!')">Proceed to
+                Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <b>FashionHub</b> — MERN Stack Cart | Made with ❤️
+    </footer>
+
+    <!-- Connect your shared Javascript tracking tools -->
+    <script src="/js/cart.js"></script>
+    <script>
+        // Load User 1's cart items automatically when the window renders
+        document.addEventListener("DOMContentLoaded", () => {
+            renderCartDisplay(1, 'cartDisplayGrid');
+        });
+    </script>
+</body>
+
+</html>
